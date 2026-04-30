@@ -116,7 +116,43 @@ html, body, [class*="css"] { font-family: 'Segoe UI', sans-serif; }
 .guide-item { display: flex; align-items: flex-start; gap: 0.7rem; margin-bottom: 0.6rem; }
 .guide-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
 .guide-text { font-size: 0.88rem; color: #3a5a7a; line-height: 1.5; }
-[data-testid="stSidebar"] { background: #f5f8fc; border-right: 1px solid #dde8f0; }
+[data-testid="stSidebar"] {
+    background: #0f2942 !important;
+    border-right: 1px solid #1a3a5c;
+}
+[data-testid="stSidebar"] * {
+    color: #e8f0fa !important;
+}
+[data-testid="stSidebar"] .stSlider label,
+[data-testid="stSidebar"] .stSelectbox label,
+[data-testid="stSidebar"] .stNumberInput label {
+    color: #a8c8f0 !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+}
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span {
+    color: #e8f0fa !important;
+}
+[data-testid="stSidebar"] .stMarkdown p {
+    color: #a8c8f0 !important;
+    font-size: 0.88rem !important;
+}
+[data-testid="stSidebar"] hr {
+    border-color: #1a4a7a !important;
+}
+[data-testid="stSidebar"] [data-baseweb="select"] > div {
+    background: #1a3a5c !important;
+    border-color: #2a5a8c !important;
+    color: #e8f0fa !important;
+}
+[data-testid="stSidebar"] .stButton > button {
+    background: #e94560 !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 700 !important;
+}
 .custom-divider { border: none; border-top: 1px solid #e0e8f2; margin: 1.2rem 0; }
 .empty-state { text-align: center; padding: 3rem 2rem; color: #7a9ab8; }
 .empty-state h3 { color: #1a4a7a; font-size: 1.2rem; margin-bottom: 0.5rem; }
@@ -293,9 +329,15 @@ with st.sidebar:
         "Tagihan Digital?",
         ["No","Yes"], format_func=lambda x: "Tidak" if x=="No" else "Ya"
     )
-    monthly_charges = st.number_input(
-        "Tagihan Bulanan (USD)", min_value=0.0, max_value=200.0, value=65.0, step=0.5
-    )
+    st.markdown("**Tagihan Bulanan**")
+    col_dollar, col_input = st.columns([0.15, 0.85])
+    with col_dollar:
+        st.markdown("<div style='padding-top:0.55rem;font-size:1.2rem;font-weight:700;color:#a8c8f0;'>$</div>", unsafe_allow_html=True)
+    with col_input:
+        monthly_charges = st.number_input(
+            "", min_value=0.0, max_value=200.0, value=65.0, step=0.5,
+            label_visibility="collapsed"
+        )
 
     st.markdown("---")
     analyze_btn = st.button("🔎 Analyze Customer Risk", type="primary", use_container_width=True)
@@ -461,7 +503,7 @@ else:
                                   ("Online Backup",online_backup),("Device Protection",device_protection)] if v == "Yes"]
         addon_text = ", ".join(addons) if addons else "tidak ada layanan tambahan"
 
-        b1 = f"Customer menggunakan {internet_lbl} dengan {contract_lbl} dan tagihan bulanan <strong>USD {monthly_charges:,.2f}</strong>."
+        b1 = f"Customer menggunakan {internet_lbl} dengan {contract_lbl} dan tagihan bulanan <strong>${monthly_charges:,.2f}</strong>."
         b2 = f"Risiko churn level <strong>{risk_label}</strong> — probabilitas <strong>{churn_pct}%</strong> — {'perlu tindakan segera' if risk_class=='high' else 'perlu dipantau' if risk_class=='medium' else 'relatif aman'}."
         b3 = ("Disarankan retention call dan penawaran kontrak jangka panjang segera." if risk_class=="high" else
               "Disarankan personalized offer dan monitoring 1 bulan ke depan." if risk_class=="medium" else
@@ -475,7 +517,7 @@ else:
             "Lama Berlangganan": f"{tenure} bulan",
             "Jenis Internet": internet_lbl,
             "Jenis Kontrak": contract_lbl,
-            "Tagihan Bulanan": f"USD {monthly_charges:,.2f}",
+            "Tagihan Bulanan": f"${monthly_charges:,.2f}",
             "Tagihan Digital": "Ya" if paperless_billing=="Yes" else "Tidak",
             "Layanan Tambahan": addon_text,
         }.items():
