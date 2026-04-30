@@ -271,3 +271,9 @@ Tambahkan:
 Purwadhika Digital Technology School
 Capstone Project Module 3 — Machine Learning for Business
 
+# 🚀 Streamlit Deployment
+
+This project is deployed using Streamlit Cloud.
+
+## Live App
+👉[ https://telco-cust-churn-capstone3.streamlit.app](https://telcocustchurncapstone3-hrppjwgxhmjvprlqk886at.streamlit.app/)
