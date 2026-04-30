@@ -267,12 +267,7 @@ Tambahkan:
 
 # 👤 Author
 
-**[Nama Kamu]**
+**Indurasmi Dian Mulyastuti**
 Purwadhika Digital Technology School
 Capstone Project Module 3 — Machine Learning for Business
 
----
-
-# 🙏 Thank You
-
-If you find this project useful, feel free to ⭐ this repository.
